@@ -41,23 +41,60 @@ const moviesController = {
                 res.render('recommendedMovies.ejs', {movies});
             });
     }, //Aqui debemos modificar y completar lo necesario para trabajar con el CRUD
-    add: function (req, res) {
-        // TODO   
-    },
-    create: function (req, res) {
+    'add': function (req, res) {
         // TODO
+        res.render("moviesAdd");   
     },
-    edit: function(req, res) {
+    'create': function (req, res) {
         // TODO
+        db.Movie.create({
+            title: req.body.title,
+            rating: req.body.rating,
+            awards: req.body.awards,
+            release_date: req.body.release_date,
+            length: req.body.length
+        })
+        .then(function(movies){
+            res.redirect("/movies")
+        })
     },
-    update: function (req,res) {
+    'edit': function(req, res) {
         // TODO
+        db.Movie.findByPk(req.params.id)
+            .then(function(movie){
+                res.render("moviesEdit",{movie:movie});
+            })
     },
-    delete: function (req, res) {
+    'update': function (req,res) {
         // TODO
+        db.Movie.update({
+            title: req.body.title,
+            rating: req.body.rating,
+            awards: req.body.awards,
+            release_date: req.body.release_date,
+            length: req.body.length
+        },{
+            where:{
+                id:req.params.id
+            }
+        });
+        res.redirect("/movies/detail/"+req.params.id);
     },
-    destroy: function (req, res) {
+    'delete': function (req, res) {
         // TODO
+        db.Movie.findByPk(req.params.id)
+            .then(function(movie){
+                res.render("moviesDelete",{movie:movie});
+            })
+    },
+    'destroy': function (req, res) {
+        // TODO
+        db.Movie.destroy({
+            where:{
+                id:req.params.id
+            }
+        })
+        res.redirect("/movies");
     }
 
 }
