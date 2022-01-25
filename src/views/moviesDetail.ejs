@@ -17,14 +17,18 @@
     <p>AWARDS: <%= movie.awards %> </p>
     <p>LENGTH: <%= movie.length + ' min'%> </p>
     <p>RELEASE DATE: <%= movie.release_date %> </p>
+    <br>
+    <section>
     <form action="/movies/edit/<%=movie.id%>" method="GET">
         <button class="botonEditar" type="submit">Editar</button>
     </form>
     <form action="/movies/delete/<%=movie.id%>" method="GET">
         <button class="botonBorrar" type="submit">Borrar</button>
     </form>
-    
-    <a  class="botonVolver" href="/movies">Listado de Películas</a></p>
-
+    <a href="/movies">
+        <button class="botonVolver" = >Listado de Películas</button>
+    </a>
+</p>
+    </section>
 </body>
 </html>
